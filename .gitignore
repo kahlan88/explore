@@ -1,0 +1,23 @@
+
+syntax: glob
+
+
+## General noise
+Thumbs.db
+.DS_Store
+*.orig
+*.bak
+aspnet_client/
+*.orig
+.hgignore
+*.tmp
+
+## Frontend
+**/.sass-cache/
+**/node_modules/
+**/css/dist/
+**/img/dist/
+**/scripts/dist/
+
+
+yarn.lock
