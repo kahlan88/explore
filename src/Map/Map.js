@@ -8,21 +8,31 @@ import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import {
   storeLocationPreference,
   getLocationPreference,
+  storeWalkLocation,
 } from '../utils/storage';
-import { getHomeLocation, getCurrentLocation } from '../utils/location';
+import {
+  getHomeLocation,
+  startCurrentLocationTracking,
+  stopCurrentLocationTracking,
+} from '../utils/location';
 
 // Styles
 import './Map.css';
 
 const Map = () => {
-  const [lat, setLat] = useState(50.94544);
-  const [lng, setLng] = useState(-1.42896);
+  const [homeLat, setHomeLat] = useState(0);
+  const [homeLng, setHomeLng] = useState(0);
+
+  const [lat, setLat] = useState(homeLat);
+  const [lng, setLng] = useState(homeLng);
   const [zoom, setZoom] = useState(18);
-  const [allowedLocation, setAllowedLocation] = useState(false);
+  const allowed = getLocationPreference();
+  const [allowedLocation, setAllowedLocation] = useState(!!allowed);
   const position = [lat, lng];
 
+  const [watchId, setWatchId] = useState(0);
+
   useEffect(() => {
-    const allowed = getLocationPreference();
     setAllowedLocation(allowed);
   });
 
@@ -31,27 +41,48 @@ const Map = () => {
     storeLocationPreference(true);
   };
 
+  const handleStartTracking = () => {
+    getHomeLocation(homeLocationCallback);
+    startCurrentLocationTracking(newLocationCallback);
+  };
+  const handleStopTracking = () => {
+    stopCurrentLocationTracking(watchId);
+  };
+
+  const homeLocationCallback = position => {
+    setHomeLat(position.coords.latitude);
+    setHomeLng(position.coords.longitude);
+  };
+
+  const newLocationCallback = (position, id) => {
+    setLat(position.coords.latitude);
+    setLng(position.coords.longitude);
+    setWatchId(id);
+    console.log(id, position);
+    storeWalkLocation(position);
+  };
+
   if (allowedLocation) {
-    getHomeLocation();
-    getCurrentLocation();
     return (
       <div className="Map">
         {/* TODO: add compontent for Location & Location detail */}
         <div className="">
           <div className="top top--left">
-            Home location:
-            <div id="homeLat" />
-            <div id="homeLon" />
+            {!homeLat && !homeLng ? (
+              <button onClick={handleStartTracking}>Start!</button>
+            ) : (
+              <>
+                Home location:
+                <div>{homeLat}</div>
+                <div>{homeLng}</div>
+                <button onClick={handleStopTracking}>Stop!</button>
+              </>
+            )}
           </div>
-          {/* <div>
-            watch:
-            <div id="watchLat" />
-            <div id="watchLon" />
-          </div> */}
           <div className="top top--right">
             Current location:
-            <div id="currentLat" />
-            <div id="currentLon" />
+            <div>{lat}</div>
+            <div>{lng}</div>
           </div>
         </div>
 
