@@ -21,8 +21,8 @@ const init = () => {
 
 const watchUserPosition = () => {
   navigator.geolocation.watchPosition(function(position) {
-    document.getElementById('currentLat').innerHTML = position.coords.latitude;
-    document.getElementById('currentLon').innerHTML = position.coords.longitude;
+    document.getElementById('startLat').innerHTML = position.coords.latitude;
+    document.getElementById('startLon').innerHTML = position.coords.longitude;
   });
 };
 
