@@ -16,7 +16,7 @@ export default class Map extends Component {
     this.state = {
       lat: 50.94544,
       lng: -1.42896,
-      zoom: 13,
+      zoom: 18,
     };
   }
 
