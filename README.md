@@ -65,8 +65,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ## Deployment to GitHub pages
 
-`git config --global user.name 'kahlan88'`
-`git remote set-url origin https://kahlan88:<token>@github.com/kahlan88/explore`
+`git config --global user.name '<username>'`
+
+`git remote set-url origin https://<username>:<token>@github.com/<username>/explore`
 
 For troubleshooting & how to set your access token see https://facebook.github.io/create-react-app/docs/deployment#troubleshooting
 
