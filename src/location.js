@@ -9,24 +9,33 @@ const init = () => {
   }
 };
 
-const getLocationFromUser = () => {
-  let startPos;
-  const geoSuccess = function(position) {
-    startPos = position;
-    document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-    document.getElementById('startLon').innerHTML = startPos.coords.longitude;
-  };
-  return navigator.geolocation.getCurrentPosition(geoSuccess);
+// const getLocationFromUser = () => {
+//   let startPos;
+//   const geoSuccess = function(position) {
+//     startPos = position;
+//     document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+//     document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+//   };
+//   return navigator.geolocation.getCurrentPosition(geoSuccess);
+// };
+
+const watchUserPosition = () => {
+  navigator.geolocation.watchPosition(function(position) {
+    document.getElementById('currentLat').innerHTML = position.coords.latitude;
+    document.getElementById('currentLon').innerHTML = position.coords.longitude;
+  });
 };
 
 const getLocation = () => {
   init();
-  window.onload = function() {
-    getLocationFromUser();
-  };
-  setInterval(() => {
-    getLocationFromUser();
-  }, 1500);
+  watchUserPosition();
+  // window.onload = function() {
+  //   getLocationFromUser();
+  // };
+  // setInterval(() => {
+  //   getLocationFromUser();
+  // }, 1500);
+
   //   var startPos;
   //   var nudge = document.getElementById("nudge");
 
