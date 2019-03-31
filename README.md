@@ -70,8 +70,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 For troubleshooting & how to set your access token see https://facebook.github.io/create-react-app/docs/deployment#troubleshooting
 
-`yarn run predeploy` to build the project into `build` directory
-`yarn run deploy` to deploy to GitHub pages
+`yarn run predeploy` to build the project into `build` directory if you want to test it working before deploy
+
+`yarn run deploy` to build & deploy to GitHub pages
 
 See [Create React App]https://facebook.github.io/create-react-app/docs/deployment#github-pages-https-pagesgithubcom
 
