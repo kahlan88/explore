@@ -43,14 +43,10 @@ const getHomeLocation = callback => {
   getLocationFromUser(callback);
 };
 
-const startCurrentLocationTracking = callback => {
-  getCurrentLocation(callback);
-};
+const startCurrentLocationTracking = callback => getCurrentLocation(callback);
 
-const stopCurrentLocationTracking = watchId => {
-  console.log(watchId);
+const stopCurrentLocationTracking = watchId =>
   navigator.geolocation.clearWatch(watchId);
-};
 
 export {
   startCurrentLocationTracking,

@@ -38,6 +38,9 @@ const storeWalkLocation = pos => {
   localStorage.setItem('walkLocations', JSON.stringify(walkLocations));
 };
 
+const getWalkLocations = () =>
+  JSON.parse(localStorage.getItem('walkLocations'));
+
 // If we need to delete all entries of the store we can simply do:
 const clear = () => localStorage.clear();
 
@@ -45,6 +48,7 @@ export {
   storeLocationPreference,
   getLocationPreference,
   storeWalkLocation,
+  getWalkLocations,
   clear,
 };
 export default storeLocationPreference;

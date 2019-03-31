@@ -9,6 +9,7 @@ import {
   storeLocationPreference,
   getLocationPreference,
   storeWalkLocation,
+  getWalkLocations,
 } from '../utils/storage';
 import {
   getHomeLocation,
@@ -31,6 +32,9 @@ const Map = () => {
   const position = [lat, lng];
 
   const [watchId, setWatchId] = useState(0);
+
+  // This is used only for debugging purposes
+  const [wlDebugging, setWlDebugging] = useState();
 
   useEffect(() => {
     setAllowedLocation(allowed);
@@ -58,8 +62,10 @@ const Map = () => {
     setLat(position.coords.latitude);
     setLng(position.coords.longitude);
     setWatchId(id);
-    console.log(id, position);
     storeWalkLocation(position);
+    // TODO: remove this code after testing Chrome on Android increasing the number of locations when the screen is off
+    const wlDebugging = getWalkLocations();
+    setWlDebugging(wlDebugging.length);
   };
 
   if (allowedLocation) {
@@ -78,6 +84,7 @@ const Map = () => {
                 <button onClick={handleStopTracking}>Stop!</button>
               </>
             )}
+            We've got {wlDebugging} locations!
           </div>
           <div className="top top--right">
             Current location:
@@ -92,7 +99,7 @@ const Map = () => {
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
           <Marker position={position}>
-            <Popup>Home</Popup>
+            <Popup>You're here!</Popup>
           </Marker>
         </LeafletMap>
       </div>
